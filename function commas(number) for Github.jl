@@ -1,17 +1,17 @@
-function commas(number)
-    digits = [];    output = "";    remaining = 0
+function commas(n)
+    digits = [];    output = "";    rem = 0
 
-    if number < 0
+    if n < 0
         output = "-"
-        remaining = -number
+        rem = -n
     else
-        remaining = number
+        rem = n
     end
 
 
-    while remaining > 0
-        push!(digits, remaining % 10)
-        remaining = div(remaining, 10)
+    while rem > 0
+        push!(digits, rem % 10)
+        rem ÷= 10
     end
     reverse!(digits)
 
@@ -23,11 +23,36 @@ function commas(number)
         end
     end
 
-    return output
+    output
 end
 
+
+ 
+
+
 function main()
-    num = Int128(2)^70
-    println(commas(num))
+    testNums = []
+    factl = UInt128(1)
+    for n = 1 : 25
+        factl *= n
+        push!(testNums, factl)
+    end
+
+    lenMax = length("Y   Z   E   P   T   G   M   k     ")
+    for item in testNums
+        if length(doubleCommas(item)) > lenMax
+            lenMax = length(doubleCommas(item))
+        end
+    end
+
+    println(lpad("Y   Z   E   P   T   G   M   k     ", lenMax))
+
+
+    for item in testNums
+        println(lpad(doubleCommas(item), lenMax))
+    end
+
+
+    println(lpad("Y   Z   E   P   T   G   M   k     ", lenMax))
 end
 main()
